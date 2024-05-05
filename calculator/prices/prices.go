@@ -33,7 +33,7 @@ func NewTaxIncludedPriceJob(iom iomanager.IOManager, taxRate float64) *TaxInclud
 	}
 }
 
-func (job *TaxIncludedPriceJob) Process() {
+func (job *TaxIncludedPriceJob) Process(channel chan bool) {
 	job.LoadData()
 	result := make(map[string]string)
 	for _, price := range job.InputPrices {
@@ -42,4 +42,5 @@ func (job *TaxIncludedPriceJob) Process() {
 	}
 	job.TaxIncludedPrice = result
 	job.IOManager.WriteResult(job)
+	channel <- true
 }

@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"time"
 )
 
 type FileManager struct {
@@ -41,6 +42,7 @@ func (fm FileManager) ReadFile() ([]string, error) {
 	return lines, nil
 }
 func (fm FileManager) WriteResult(data any) error {
+	time.Sleep(3 * time.Second)
 	file, err := os.Create(fm.writePath)
 	if err != nil {
 		file.Close()
